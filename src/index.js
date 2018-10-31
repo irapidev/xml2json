@@ -150,11 +150,13 @@ export default class XML2JSON {
   }
 
   static getElementText(element) {
+    let elementText = null;
     if ('innerText' in element) {
-      return element.innerText;
+      elementText = element.innerText;
     } else if ('text' in element.attr) {
-      return element.attr.text;
+      const { text } = element.attr;
+      elementText = text;
     }
-    return null;
+    return elementText;
   }
 }
