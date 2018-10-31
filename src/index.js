@@ -141,4 +141,20 @@ export default class XML2JSON {
     };
     parser.write(xmlSource).close();
   }
+
+  static getElementAttr(element, attr) {
+    if (attr in element.attr) {
+      return element.attr[attr];
+    }
+    return null;
+  }
+
+  static getElementText(element) {
+    if ('innerText' in element) {
+      return element.innerText;
+    } else if ('text' in element.attr) {
+      return element.attr.text;
+    }
+    return null;
+  }
 }
