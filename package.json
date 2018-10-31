@@ -1,5 +1,5 @@
 {
-  "name": "xml2json",
+  "name": "@rapidevelop/xml2json",
   "version": "1.0.0",
   "description": "A library to convert a XML file or XML text string to JSON object.",
   "main": "dist/index.js",
