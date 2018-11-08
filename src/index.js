@@ -4,15 +4,19 @@ import { parser as xmlParser } from 'sax';
 
 export default class XML2JSON {
   /**
-   * Parse a XML file that is located on a remote server.
+   * Parses a XML file that is located on a remote server.
+   *
+   * @static
    * @param {string} url - URL of XML file.
    * @param {function} callback - Callback function that will be called after it done processing
    *  XML file.
-   * @param {boolean} followRedirect - Indicate whether we want to follow HTTP redirects or not.
-   * @param {number} maxRedirects - Maximum number of HTTP redirects we want to follow.
-   * @param {string} encoding - Response encoding.
-   * @param {number} timeout - Maximum time in milliseconds that we want to wait for server
-   *  response.
+   * @param {boolean} [followRedirect=true] - Indicate whether we want to follow HTTP redirects
+   * or not.
+   * @param {number} [maxRedirects=10] - Maximum number of HTTP redirects we want to follow.
+   * @param {string} [encoding='UTF8'] - Response encoding.
+   * @param {number} [timeout=10000] - Maximum time in milliseconds that we want to wait for server
+   * response.
+   * @memberof XML2JSON
    */
   static parseFromUrl(url, callback, followRedirect = true, maxRedirects = 10, encoding = 'UTF8', timeout = 10000) {
     getRequest({
@@ -24,7 +28,7 @@ export default class XML2JSON {
       timeout,
     }, (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        XML2JSON.parse(body, callback);
+        this.parse(body, callback);
       } else if (error) {
         throw Error(`An error occurred: ${error}`);
       } else if (response.statusCode !== 200) {
@@ -34,15 +38,18 @@ export default class XML2JSON {
   }
 
   /**
-   * Parse a XML file that is located on local file system.
+   * Parses a XML file that is located on local file system.
+   *
+   * @static
    * @param {string} filePath - XML file path.
    * @param {function} callback - Callback function that will be called after it done processing
    *  XML file.
+   * @memberof XML2JSON
    */
   static parseFromFile(filePath, callback) {
     fs.readFile(filePath, { encoding: 'utf-8' }, (error, data) => {
       if (!error) {
-        XML2JSON.parse(data, callback);
+        this.parse(data, callback);
       } else {
         throw Error(`An error occurred: ${error}`);
       }
@@ -50,10 +57,13 @@ export default class XML2JSON {
   }
 
   /**
-   * Parse a XML text string to a JSON object.
+   * Parses a XML text string to a JSON object.
+   *
+   * @static
    * @param {string} xmlSource - XML text string.
    * @param {function} callback - Callback function that will be called after it done processing
    *  XML file.
+   * @memberof XML2JSON
    */
   static parse(xmlSource, callback) {
     const elementsStack = [];
@@ -142,21 +152,45 @@ export default class XML2JSON {
     parser.write(xmlSource).close();
   }
 
+  /**
+   * Returns the value of element's attribute.
+   *
+   * @static
+   * @param {object} element - JSON object that refers to the element.
+   * @param {string} attr - The attribute name.
+   * @returns The value of element's attribute.
+   * @memberof XML2JSON
+   */
   static getElementAttr(element, attr) {
+    if (element === undefined || element === null || typeof element !== 'object') {
+      return undefined;
+    }
     if (attr in element.attr) {
       return element.attr[attr];
     }
-    return null;
+    return undefined;
   }
 
+  /**
+   * Returns the element's text.
+   *
+   * @static
+   * @param {object} element - JSON object that refers to the element.
+   * @returns The text of element.
+   * @memberof XML2JSON
+   */
   static getElementText(element) {
-    let elementText = null;
-    if ('innerText' in element) {
-      elementText = element.innerText;
-    } else if ('text' in element.attr) {
-      const { text } = element.attr;
-      elementText = text;
+    if (element === undefined || element === null || typeof element !== 'object') {
+      return undefined;
     }
-    return elementText;
+    if ('innerText' in element || 'text' in element.attr) {
+      if ('innerText' in element) {
+        return element.innerText;
+      }
+      if ('text' in element.attr) {
+        return element.attr.text;
+      }
+    }
+    return undefined;
   }
 }
