@@ -1,0 +1,19 @@
+{
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "source": {
+    "include": [
+      "./src/"
+    ]
+  },
+  "opts": {
+    "destination": "./docs/",
+    "encoding": "utf8",
+    "package": "./package.json",
+    "private": true,
+    "readme": "./README.md",
+    "recurse": true,
+    "verbose": true
+  }
+}

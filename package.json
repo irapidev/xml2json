@@ -5,7 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src -d dist",
+    "prebuild:docs": "rm -rf ./docs/*",
+    "build:docs": "jsdoc -c ./jsdoc.json",
+    "prebuild": "rm -rf ./dist/*",
+    "build": "babel ./src --out-dir ./dist --copy-files",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -24,14 +27,15 @@
   },
   "homepage": "https://github.com/rapidevelop/xml2json#readme",
   "devDependencies": {
-    "eslint": "^5.6.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0"
-  },
-  "dependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
+    "eslint": "^5.11.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "jsdoc": "^3.5.5"
+  },
+  "dependencies": {
     "request": "~2.88.0",
     "sax": "~1.2.4"
   }
