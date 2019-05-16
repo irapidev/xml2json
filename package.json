@@ -57,10 +57,8 @@
     "@types/sax": "^1.0.1",
     "commitizen": "^3.1.1",
     "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^5.11.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
     "jsdoc": "^3.5.5",
+    "tslint": "^5.16.0",
     "typescript": "^3.4.5"
   },
   "dependencies": {
