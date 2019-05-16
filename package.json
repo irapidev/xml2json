@@ -1,11 +1,16 @@
 {
   "name": "@rapidevelop/xml2json",
   "version": "1.0.2",
-  "description": "A library to convert a XML file or XML text string to JSON object.",
+  "description": "XML2JSON is a library to convert a XML file or XML text string to JSON.",
   "main": "dist/index.js",
+  "directories": {
+    "doc": "docs"
+  },
   "scripts": {
     "git:commit": "git-cz",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "npm:version:major": "npm version major --no-git-tag-version",
+    "npm:version:minor": "npm version minor --no-git-tag-version",
+    "npm:version:patch": "npm version patch --no-git-tag-version",
     "prebuild:docs": "rm -rf ./docs/*",
     "build:docs": "jsdoc -c ./jsdoc.json",
     "prebuild": "rm -rf ./dist/*",
