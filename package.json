@@ -14,11 +14,15 @@
     "npm:version:major": "npm version major --no-git-tag-version",
     "npm:version:minor": "npm version minor --no-git-tag-version",
     "npm:version:patch": "npm version patch --no-git-tag-version",
-    "prebuild:docs": "rm -rf ./docs/*",
-    "build:docs": "jsdoc -c ./jsdoc.json",
+    "test:types": "tsc --noEmit",
+    "test:types:watch": "npm run test:types -- --watch",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline",
     "prebuild": "rm -rf ./dist/*",
-    "build": "babel ./src --out-dir ./dist --copy-files",
-    "prepublish": "npm run build"
+    "build": "npm run build:types && npm run build:js",
+    "prepublish": "npm run build",
+    "prebuild:docs": "rm -rf ./docs/*",
+    "build:docs": "jsdoc -c ./jsdoc.json"
   },
   "repository": {
     "type": "git",
@@ -42,18 +46,25 @@
   },
   "homepage": "https://github.com/rapidevelop/xml2json#readme",
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.3",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/node": "^12.0.2",
+    "@types/request": "^2.48.1",
+    "@types/sax": "^1.0.1",
     "commitizen": "^3.1.1",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.11.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "jsdoc": "^3.5.5"
+    "jsdoc": "^3.5.5",
+    "typescript": "^3.4.5"
   },
   "dependencies": {
-    "request": "~2.88.0",
-    "sax": "~1.2.4"
+    "request": "^2.88.0",
+    "sax": "^1.2.4"
   }
 }
