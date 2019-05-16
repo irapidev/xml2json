@@ -6,6 +6,9 @@
   "directories": {
     "doc": "docs"
   },
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "git:commit": "git-cz",
     "npm:version:major": "npm version major --no-git-tag-version",
