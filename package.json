@@ -4,6 +4,7 @@
   "description": "A library to convert a XML file or XML text string to JSON object.",
   "main": "dist/index.js",
   "scripts": {
+    "git:commit": "git-cz",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild:docs": "rm -rf ./docs/*",
     "build:docs": "jsdoc -c ./jsdoc.json",
@@ -22,6 +23,12 @@
   ],
   "author": "Iman Vafadarnezhad",
   "license": "MIT",
+  "private": false,
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
   "bugs": {
     "url": "https://github.com/rapidevelop/xml2json/issues"
   },
@@ -30,6 +37,8 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
+    "commitizen": "^3.1.1",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.11.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
